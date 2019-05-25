@@ -19,7 +19,7 @@
         "128": "images/get_started128.png"
     },
     "content_scripts": [{
-        "matches": ["https://www.linkedin.com/learning/*/*?autoplay=true"],
+        "matches": ["https://www.linkedin.com/learning/*/*autoplay=true&download=true"],
         "js": ["downloadVideo.js"]
     }],
     "background": {

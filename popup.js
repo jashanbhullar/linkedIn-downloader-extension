@@ -1,14 +1,10 @@
 const changeColor = document.getElementById("Donwload");
 
 chrome.storage.sync.get("color", function(data) {
-  //   changeColor.setAttribute("value", data.color);
   changeColor.onclick = function(element) {
     chrome.tabs.executeScript({
       file: "contentScript.js"
     });
-    // chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    //   chrome.tabs.sendMessage(tabs[0].id, { action: "readDom" });
-    // });
   };
 });
 
@@ -31,12 +27,10 @@ chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     const button = document.createElement("button");
     button.setAttribute("id", "downloadAll");
     button.innerHTML = "Download all Urls";
-    button.onclick = function(element) {
-      req.urls.forEach(({ url }) => {
-        chrome.windows.create({
-          url,
-          type: "popup"
-        });
+    button.onclick = function() {
+      chrome.runtime.sendMessage({
+        action: "downloadAll",
+        urls: req.urls
       });
     };
     document.body.appendChild(button);
